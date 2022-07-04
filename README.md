@@ -1,8 +1,8 @@
-# API ModaVest
+# API appbank
 
 ## Descrição
 
-Repositório para API Rest ModaVest desenvolvido com Nest.js
+Repositório para API Rest appbank desenvolvido com Nest.js
 
 ## Tecnologias
 

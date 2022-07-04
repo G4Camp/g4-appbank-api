@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    entrypoint: ./.docker/entrypoint-dev.sh
+    container_name: appbank
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
+  
+  db:
+    build: ./.docker/postgres
+    restart: always
+    tty: true
+    volumes:
+      - .docker/dbdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=appbank
+      - POSTGRES_DB=appbank
+
+  pgadmin:
+    image: dpage/pgadmin4
+    tty: true
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=dev@appbank.com.br
+      - PGADMIN_DEFAULT_PASSWORD=123456
+    ports:
+      - 9000:80
+    depends_on:
+      - db
